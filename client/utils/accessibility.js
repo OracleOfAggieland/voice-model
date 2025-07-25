@@ -126,7 +126,8 @@ export class FocusManager {
   }
 
   // Move focus to next/previous focusable element
-  moveFocus(direction, container = document) {
+  moveFocus(direction, container = typeof document !== 'undefined' ? document : null) {
+    if (!container) return;
     const focusableElements = this.getFocusableElements(container);
     const currentIndex = focusableElements.indexOf(document.activeElement);
     
@@ -147,11 +148,14 @@ export class FocusManager {
 export class AriaAnnouncer {
   constructor() {
     this.liveRegions = new Map();
-    this.createLiveRegions();
+    if (typeof document !== 'undefined' && document.body) {
+      this.createLiveRegions();
+    }
   }
 
   // Create ARIA live regions for announcements
   createLiveRegions() {
+    if (typeof document === 'undefined' || !document.body) return;
     Object.values(ARIA_LIVE_TYPES).forEach(type => {
       if (type === ARIA_LIVE_TYPES.OFF) return;
       

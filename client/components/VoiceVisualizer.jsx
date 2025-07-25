@@ -6,14 +6,12 @@ import {
   ParticleRenderer, 
   BarsRenderer 
 } from "../utils/visualizationRenderers.js";
-import { 
+import {
   visualIndicatorManager,
-  createAriaLabel 
+  createAriaLabel
 } from '../utils/accessibility.js';
-import { 
-  animationFrameManager, 
-  memoryManager,
-  QUALITY_LEVELS 
+import {
+  QUALITY_LEVELS
 } from '../utils/performance.js';
 
 export default function VoiceVisualizer({
