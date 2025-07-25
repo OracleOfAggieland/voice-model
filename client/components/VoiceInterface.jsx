@@ -157,17 +157,19 @@ export default function VoiceInterface({
       }
     });
     
-    const unsubscribeQuality = qualityManager.onQualityChange((newQuality, oldQuality, perfData) => {
-      setCurrentQuality(newQuality);
-      ariaAnnouncer.announce(`Performance quality adjusted to ${newQuality} level`);
-      
-      // Log quality change for debugging
-      console.log(`Quality adjusted from ${oldQuality} to ${newQuality}`, {
-        frameRate: perfData.avgFrameRate,
-        memoryUsage: perfData.avgMemoryUsage,
-        reason: qualityManager.getAdjustmentHistory().slice(-1)[0]?.reason
-      });
-    });
+    const unsubscribeQuality = qualityManager
+      ? qualityManager.onQualityChange((newQuality, oldQuality, perfData) => {
+          setCurrentQuality(newQuality);
+          ariaAnnouncer.announce(`Performance quality adjusted to ${newQuality} level`);
+
+          // Log quality change for debugging
+          console.log(`Quality adjusted from ${oldQuality} to ${newQuality}`, {
+            frameRate: perfData.avgFrameRate,
+            memoryUsage: perfData.avgMemoryUsage,
+            reason: qualityManager.getAdjustmentHistory().slice(-1)[0]?.reason
+          });
+        })
+      : () => {};
 
     // Register memory cleanup tasks for long conversation sessions
     const cleanupVisualization = memoryManager.registerCleanupTask(() => {
@@ -518,7 +520,9 @@ export default function VoiceInterface({
   const getVisualizerConfig = () => {
     const config = getLayoutConfiguration();
     const qualityManager = getQualityManager();
-    const qualitySettings = qualityManager.getQualitySettings(currentQuality);
+    const qualitySettings = qualityManager
+      ? qualityManager.getQualitySettings(currentQuality)
+      : {};
     
     return {
       size: config.visualizerSize,
