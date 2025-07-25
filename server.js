@@ -27,7 +27,7 @@ app.get("/token", async (req, res) => {
         },
         body: JSON.stringify({
           model: "gpt-4o-realtime-preview-2025-06-03",
-          voice: "verse",
+          voice: "alloy",
         }),
       },
     );

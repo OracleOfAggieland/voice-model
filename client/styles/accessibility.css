@@ -1,0 +1,615 @@
+/**
+ * Accessibility styles for voice interface components
+ * Includes screen reader utilities, focus management, and visual indicators
+ */
+
+/* Screen reader only content */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Show screen reader content when focused */
+.sr-only:focus,
+.focus\:not-sr-only:focus {
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  padding: inherit !important;
+  margin: inherit !important;
+  overflow: visible !important;
+  clip: auto !important;
+  white-space: normal !important;
+}
+
+/* Focus management styles */
+.focus-trap {
+  position: relative;
+}
+
+.focus-trap:focus-within {
+  outline: 2px solid #8b5cf6;
+  outline-offset: 2px;
+}
+
+/* Enhanced focus indicators */
+button:focus,
+[role="button"]:focus,
+input:focus,
+select:focus,
+textarea:focus,
+[tabindex]:focus {
+  outline: 2px solid #8b5cf6 !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1) !important;
+}
+
+/* High contrast focus for better visibility */
+@media (prefers-contrast: high) {
+  button:focus,
+  [role="button"]:focus,
+  input:focus,
+  select:focus,
+  textarea:focus,
+  [tabindex]:focus {
+    outline: 3px solid #ffffff !important;
+    outline-offset: 2px !important;
+    box-shadow: 0 0 0 6px #000000 !important;
+  }
+}
+
+/* Visual indicators for audio cues */
+.visual-indicator {
+  position: absolute;
+  z-index: 1000;
+  pointer-events: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: white;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.visual-indicator-listening {
+  background: rgba(59, 130, 246, 0.9);
+  border-color: rgba(59, 130, 246, 0.5);
+}
+
+.visual-indicator-speaking {
+  background: rgba(139, 92, 246, 0.9);
+  border-color: rgba(139, 92, 246, 0.5);
+}
+
+.visual-indicator-idle {
+  background: rgba(107, 114, 128, 0.9);
+  border-color: rgba(107, 114, 128, 0.5);
+}
+
+/* Audio input/output indicators */
+.audio-input-indicator {
+  background: rgba(34, 197, 94, 0.9) !important;
+  border-color: rgba(34, 197, 94, 0.5) !important;
+}
+
+.audio-input-indicator::before {
+  content: '🎤';
+  font-size: 14px;
+}
+
+.audio-output-indicator {
+  background: rgba(168, 85, 247, 0.9) !important;
+  border-color: rgba(168, 85, 247, 0.5) !important;
+}
+
+.audio-output-indicator::before {
+  content: '🔊';
+  font-size: 14px;
+}
+
+/* Enhanced voice state indicators */
+.voice-state-indicator {
+  background: rgba(59, 130, 246, 0.9) !important;
+  border-color: rgba(59, 130, 246, 0.5) !important;
+}
+
+.voice-state-indicator::before {
+  content: '🎙️';
+  font-size: 14px;
+}
+
+.visual-indicator::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  background: inherit;
+  border: inherit;
+  border-bottom: none;
+  border-right: none;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+/* Voice state indicators */
+.voice-state-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.voice-state-indicator::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: pulse 2s infinite;
+}
+
+/* Motion preferences with CSS custom properties */
+:root {
+  --motion-duration-fast: 150ms;
+  --motion-duration-normal: 300ms;
+  --motion-duration-slow: 500ms;
+  --motion-easing: cubic-bezier(0.4, 0, 0.2, 1);
+  --motion-scale: 1.05;
+  --motion-blur: 4px;
+}
+
+.motion-reduced {
+  --motion-duration-fast: 50ms;
+  --motion-duration-normal: 100ms;
+  --motion-duration-slow: 150ms;
+  --motion-easing: linear;
+  --motion-scale: 1;
+  --motion-blur: 0px;
+}
+
+.motion-reduced * {
+  animation-duration: var(--motion-duration-fast) !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: var(--motion-duration-fast) !important;
+  scroll-behavior: auto !important;
+  transform: none !important;
+}
+
+.motion-reduced .animate-pulse,
+.motion-reduced .animate-ping,
+.motion-reduced .animate-spin,
+.motion-reduced .animate-bounce {
+  animation: none !important;
+}
+
+/* Respect system motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-duration-fast: 50ms;
+    --motion-duration-normal: 100ms;
+    --motion-duration-slow: 150ms;
+    --motion-easing: linear;
+    --motion-scale: 1;
+    --motion-blur: 0px;
+  }
+  
+  * {
+    animation-duration: var(--motion-duration-fast) !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: var(--motion-duration-fast) !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .animate-pulse,
+  .animate-ping,
+  .animate-spin,
+  .animate-bounce {
+    animation: none !important;
+  }
+  
+  /* Disable complex transforms */
+  .hover\:scale-110:hover,
+  .hover\:scale-105:hover {
+    transform: none !important;
+  }
+  
+  /* Disable blur effects */
+  .backdrop-blur-md,
+  .backdrop-blur-lg {
+    backdrop-filter: none !important;
+  }
+}
+
+/* Motion-aware animations */
+.motion-aware-fade {
+  opacity: 0;
+  transition: opacity var(--motion-duration-normal) var(--motion-easing);
+}
+
+.motion-aware-fade.visible {
+  opacity: 1;
+}
+
+.motion-aware-scale {
+  transform: scale(0.95);
+  transition: transform var(--motion-duration-normal) var(--motion-easing);
+}
+
+.motion-aware-scale.visible {
+  transform: scale(var(--motion-scale));
+}
+
+.motion-aware-slide {
+  transform: translateY(20px);
+  transition: transform var(--motion-duration-normal) var(--motion-easing);
+}
+
+.motion-aware-slide.visible {
+  transform: translateY(0);
+}
+
+/* Keyboard navigation helpers */
+.keyboard-navigation-active {
+  outline-style: solid !important;
+}
+
+.keyboard-navigation-active *:focus {
+  outline: 2px solid #8b5cf6 !important;
+  outline-offset: 2px !important;
+}
+
+/* Skip links */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: #8b5cf6;
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 500;
+  z-index: 9999;
+  transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* ARIA live regions styling */
+[aria-live] {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Status and alert styling */
+[role="status"],
+[role="alert"] {
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+[role="status"] {
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  color: #3b82f6;
+}
+
+[role="alert"] {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #ef4444;
+}
+
+/* Progress bar accessibility */
+[role="progressbar"] {
+  position: relative;
+  background: rgba(107, 114, 128, 0.3);
+  border-radius: 4px;
+  height: 4px;
+  overflow: hidden;
+}
+
+[role="progressbar"]::after {
+  content: attr(aria-valuenow) '%';
+  position: absolute;
+  top: -24px;
+  right: 0;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Toolbar styling */
+[role="toolbar"] {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+}
+
+[role="toolbar"] [role="group"] {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Message accessibility */
+.message-bubble[role="button"] {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.message-bubble[role="button"]:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.message-bubble[role="button"]:focus {
+  outline: 2px solid #8b5cf6;
+  outline-offset: 2px;
+}
+
+/* Conversation log styling */
+[role="log"] {
+  max-height: 400px;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [role="log"] {
+    scroll-behavior: auto;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .visual-indicator {
+    border-width: 2px;
+    font-weight: 600;
+  }
+  
+  [role="status"],
+  [role="alert"] {
+    border-width: 2px;
+    font-weight: 600;
+  }
+  
+  button,
+  [role="button"] {
+    border-width: 2px !important;
+    font-weight: 600 !important;
+  }
+}
+
+/* Dark mode accessibility improvements */
+@media (prefers-color-scheme: dark) {
+  .visual-indicator {
+    background: rgba(0, 0, 0, 0.9);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+  
+  [role="status"] {
+    background: rgba(59, 130, 246, 0.2);
+    border-color: rgba(59, 130, 246, 0.5);
+    color: #60a5fa;
+  }
+  
+  [role="alert"] {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.5);
+    color: #f87171;
+  }
+}
+
+/* Animation utilities that respect motion preferences */
+@keyframes accessible-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes accessible-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-accessible-pulse {
+  animation: accessible-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-accessible-fade-in {
+  animation: accessible-fade-in 0.3s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-accessible-pulse,
+  .animate-accessible-fade-in {
+    animation: none;
+  }
+}
+
+/* Focus management for modals and panels */
+.focus-trap-active {
+  position: relative;
+}
+
+.focus-trap-active::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  pointer-events: none;
+}
+
+/* Keyboard shortcut display */
+.keyboard-shortcut {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px 6px;
+  background: rgba(107, 114, 128, 0.2);
+  border: 1px solid rgba(107, 114, 128, 0.3);
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.keyboard-shortcut-key {
+  padding: 1px 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  min-width: 16px;
+  text-align: center;
+}
+
+/* Keyboard navigation indicators */
+.keyboard-navigation-hint {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1001;
+}
+
+.keyboard-navigation-active .keyboard-navigation-hint {
+  opacity: 1;
+}
+
+/* Status announcements styling */
+.status-announcement {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(59, 130, 246, 0.95);
+  color: white;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 9999;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(59, 130, 246, 0.5);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  animation: slideInFromRight 0.3s ease-out;
+  max-width: 300px;
+}
+
+.status-announcement.error {
+  background: rgba(239, 68, 68, 0.95);
+  border-color: rgba(239, 68, 68, 0.5);
+}
+
+.status-announcement.success {
+  background: rgba(34, 197, 94, 0.95);
+  border-color: rgba(34, 197, 94, 0.5);
+}
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Error states with accessibility */
+.error-state {
+  padding: 16px;
+  border-radius: 8px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #ef4444;
+}
+
+.error-state[role="alert"] {
+  position: relative;
+}
+
+.error-state[role="alert"]::before {
+  content: '⚠';
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.error-state[role="alert"] .error-message {
+  margin-left: 32px;
+}
+
+/* Loading states with accessibility */
+.loading-state {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.loading-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid #8b5cf6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-spinner {
+    animation: none;
+    border-top-color: rgba(255, 255, 255, 0.3);
+  }
+  
+  .loading-spinner::after {
+    content: '⏳';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,337 @@
+/* Voice UI Specific Animations and Effects */
+
+/* Advanced Voice Visualizer Animations */
+@keyframes voice-orb-pulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.1);
+    filter: brightness(1.2);
+  }
+}
+
+@keyframes voice-ripple-expand {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes voice-frequency-bar {
+  0%, 100% {
+    height: 20%;
+  }
+  50% {
+    height: 100%;
+  }
+}
+
+@keyframes voice-waveform {
+  0% {
+    d: path("M0,50 Q25,25 50,50 T100,50");
+  }
+  50% {
+    d: path("M0,50 Q25,75 50,50 T100,50");
+  }
+  100% {
+    d: path("M0,50 Q25,25 50,50 T100,50");
+  }
+}
+
+/* Particle System Animations */
+@keyframes particle-drift {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--drift-x, 100px), var(--drift-y, -100px)) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes particle-sparkle {
+  0%, 100% {
+    transform: scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1) rotate(180deg);
+    opacity: 1;
+  }
+}
+
+/* Conversation Display Animations */
+@keyframes message-slide-in {
+  0% {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes typing-indicator {
+  0%, 60%, 100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes highlight-flash {
+  0% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: rgba(255, 213, 79, 0.3);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+/* Control Panel Animations */
+@keyframes control-appear {
+  0% {
+    transform: scale(0.8) translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes control-disappear {
+  0% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.8) translateY(20px);
+    opacity: 0;
+  }
+}
+
+@keyframes floating-bob {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Contextual Panel Animations */
+@keyframes panel-slide-in {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes panel-slide-out {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes panel-expand {
+  0% {
+    max-height: 0;
+    opacity: 0;
+  }
+  100% {
+    max-height: 500px;
+    opacity: 1;
+  }
+}
+
+@keyframes panel-collapse {
+  0% {
+    max-height: 500px;
+    opacity: 1;
+  }
+  100% {
+    max-height: 0;
+    opacity: 0;
+  }
+}
+
+/* Financial Widget Animations */
+@keyframes chart-draw {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes number-count-up {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes progress-fill {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: var(--progress-width, 100%);
+  }
+}
+
+/* Voice State Transition Animations */
+.voice-state-transition {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.voice-idle-enter {
+  animation: fade-in 0.6s ease-out;
+}
+
+.voice-listening-enter {
+  animation: scale-in 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.voice-speaking-enter {
+  animation: voice-orb-pulse 0.4s ease-out;
+}
+
+.voice-processing-enter {
+  animation: voice-processing-spin 0.6s linear infinite;
+}
+
+/* Utility Classes for Voice Animations */
+.voice-orb {
+  animation: voice-orb-pulse 2s ease-in-out infinite;
+}
+
+.voice-ripple {
+  animation: voice-ripple-expand 1.5s ease-out infinite;
+}
+
+.voice-frequency-bars .bar {
+  animation: voice-frequency-bar 0.3s ease-in-out infinite;
+}
+
+.voice-frequency-bars .bar:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.voice-frequency-bars .bar:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.voice-frequency-bars .bar:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+.voice-frequency-bars .bar:nth-child(5) {
+  animation-delay: 0.4s;
+}
+
+.particle-system .particle {
+  animation: particle-drift 4s linear infinite;
+}
+
+.particle-system .particle:nth-child(odd) {
+  animation: particle-sparkle 2s ease-in-out infinite;
+}
+
+.message-enter {
+  animation: message-slide-in 0.3s ease-out;
+}
+
+.typing-dots .dot {
+  animation: typing-indicator 1.4s ease-in-out infinite;
+}
+
+.typing-dots .dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-dots .dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.financial-highlight {
+  animation: highlight-flash 0.6s ease-in-out;
+}
+
+.floating-control {
+  animation: floating-bob 3s ease-in-out infinite;
+}
+
+.chart-line {
+  stroke-dasharray: 1000;
+  animation: chart-draw 2s ease-out forwards;
+}
+
+.number-animate {
+  animation: number-count-up 0.5s ease-out;
+}
+
+.progress-bar {
+  animation: progress-fill 1s ease-out forwards;
+}
+
+/* Responsive Animation Adjustments */
+@media (max-width: 768px) {
+  .voice-orb {
+    animation-duration: 1.5s;
+  }
+  
+  .voice-ripple {
+    animation-duration: 1s;
+  }
+  
+  .particle-system .particle {
+    animation-duration: 3s;
+  }
+}
+
+/* High Performance Mode (for lower-end devices) */
+@media (prefers-reduced-motion: no-preference) and (max-width: 480px) {
+  .voice-orb,
+  .voice-ripple,
+  .particle-system {
+    animation-duration: 0.8s;
+  }
+  
+  .voice-frequency-bars .bar {
+    animation-duration: 0.2s;
+  }
+}

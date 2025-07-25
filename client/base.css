@@ -1,14 +1,100 @@
-/*
-@tailwind base; adds base styles to all elements:
-https://tailwindcss.com/docs/preflight
-*/
+@import './styles/voice-animations.css';
+@import './styles/conversation-display.css';
+@import './styles/financial-highlighting.css';
+@import './styles/contextual-panels.css';
+@import './styles/financial-widgets.css';
+@import './styles/voice-controls.css';
+@import './styles/accessibility.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --color-base: #efefef;
-  --color-highlight: #ff80ff;
+  /* Base Colors */
+  --color-base: #0a0f1c;
+  --color-surface: #141b2d;
+  --color-surface-light: #1e2841;
+  --color-surface-lighter: #2a3441;
+  --color-primary: #4fc3f7;
+  --color-secondary: #81c784;
+  --color-accent: #ffd54f;
+  --color-danger: #ff5252;
+  --color-text: #e0e6ed;
+  --color-text-muted: #9ca3af;
+  --color-text-dim: #6b7280;
+  
+  /* Voice State Colors */
+  --color-voice-idle: #667eea;
+  --color-voice-listening: #4fc3f7;
+  --color-voice-speaking: #764ba2;
+  --color-voice-processing: #ffd54f;
+  --color-voice-error: #ff5252;
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-secondary: linear-gradient(135deg, #4fc3f7 0%, #38a169 100%);
+  --gradient-voice-idle: linear-gradient(135deg, #667eea 0%, #4fc3f7 100%);
+  --gradient-voice-listening: linear-gradient(135deg, #4fc3f7 0%, #29b6f6 100%);
+  --gradient-voice-speaking: linear-gradient(135deg, #764ba2 0%, #9c27b0 100%);
+  --gradient-voice-processing: linear-gradient(135deg, #ffd54f 0%, #ffb74d 100%);
+  
+  /* Glassmorphism Properties */
+  --glass-bg: rgba(20, 27, 45, 0.8);
+  --glass-bg-light: rgba(30, 40, 65, 0.6);
+  --glass-bg-lighter: rgba(42, 52, 65, 0.4);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-border-light: rgba(255, 255, 255, 0.15);
+  --glass-blur: 10px;
+  --glass-blur-heavy: 20px;
+  
+  /* Animation Properties */
+  --animation-duration-fast: 0.15s;
+  --animation-duration-normal: 0.3s;
+  --animation-duration-slow: 0.6s;
+  --animation-duration-extra-slow: 1.2s;
+  --animation-easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --animation-easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --animation-easing-elastic: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  
+  /* Glow Effects */
+  --glow-primary: 0 0 20px rgba(79, 195, 247, 0.5);
+  --glow-secondary: 0 0 20px rgba(129, 199, 132, 0.5);
+  --glow-accent: 0 0 20px rgba(255, 213, 79, 0.5);
+  --glow-voice-idle: 0 0 30px rgba(102, 126, 234, 0.4);
+  --glow-voice-listening: 0 0 30px rgba(79, 195, 247, 0.6);
+  --glow-voice-speaking: 0 0 30px rgba(118, 75, 162, 0.6);
+  --glow-voice-processing: 0 0 30px rgba(255, 213, 79, 0.5);
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+  --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+  
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  
+  /* Z-Index Layers */
+  --z-base: 0;
+  --z-overlay: 10;
+  --z-modal: 20;
+  --z-popover: 30;
+  --z-tooltip: 40;
+  --z-notification: 50;
 }
 
 html,
@@ -18,7 +104,657 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  font-family: "Consolas", "Andale Mono", monospace;
-  font-size: 0.9rem;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
   background-color: var(--color-base);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Enhanced Glassmorphism Effects */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+}
+
+.glass-light {
+  background: var(--glass-bg-light);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border-light);
+  border-radius: var(--radius-lg);
+}
+
+.glass-lighter {
+  background: var(--glass-bg-lighter);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+}
+
+.glass-heavy {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur-heavy));
+  -webkit-backdrop-filter: blur(var(--glass-blur-heavy));
+  border: 1px solid var(--glass-border-light);
+  border-radius: var(--radius-lg);
+}
+
+/* Enhanced Glow Effects */
+.glow {
+  box-shadow: var(--glow-primary);
+}
+
+.glow-secondary {
+  box-shadow: var(--glow-secondary);
+}
+
+.glow-accent {
+  box-shadow: var(--glow-accent);
+}
+
+.glow-voice-idle {
+  box-shadow: var(--glow-voice-idle);
+}
+
+.glow-voice-listening {
+  box-shadow: var(--glow-voice-listening);
+}
+
+.glow-voice-speaking {
+  box-shadow: var(--glow-voice-speaking);
+}
+
+.glow-voice-processing {
+  box-shadow: var(--glow-voice-processing);
+}
+
+.glow-pulse {
+  animation: glow-pulse var(--animation-duration-extra-slow) ease-in-out infinite;
+}
+
+/* Voice State Classes */
+.voice-idle {
+  color: var(--color-voice-idle);
+  background: var(--gradient-voice-idle);
+  animation: voice-idle-pulse var(--animation-duration-extra-slow) ease-in-out infinite;
+}
+
+.voice-listening {
+  color: var(--color-voice-listening);
+  background: var(--gradient-voice-listening);
+  box-shadow: var(--glow-voice-listening);
+}
+
+.voice-speaking {
+  color: var(--color-voice-speaking);
+  background: var(--gradient-voice-speaking);
+  box-shadow: var(--glow-voice-speaking);
+  animation: voice-speaking-wave 0.8s ease-in-out infinite;
+}
+
+.voice-processing {
+  color: var(--color-voice-processing);
+  background: var(--gradient-voice-processing);
+  box-shadow: var(--glow-voice-processing);
+  animation: voice-processing-spin var(--animation-duration-slow) linear infinite;
+}
+
+/* Voice Interface Container States */
+.voice-interface-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.voice-state-idle {
+  --interface-accent: var(--color-voice-idle);
+  --interface-glow: var(--glow-voice-idle);
+}
+
+.voice-state-connecting {
+  --interface-accent: var(--color-voice-processing);
+  --interface-glow: var(--glow-voice-processing);
+}
+
+.voice-state-listening {
+  --interface-accent: var(--color-voice-listening);
+  --interface-glow: var(--glow-voice-listening);
+}
+
+.voice-state-speaking {
+  --interface-accent: var(--color-voice-speaking);
+  --interface-glow: var(--glow-voice-speaking);
+}
+
+.voice-state-processing {
+  --interface-accent: var(--color-voice-processing);
+  --interface-glow: var(--glow-voice-processing);
+}
+
+.voice-state-error {
+  --interface-accent: var(--color-voice-error);
+  --interface-glow: 0 0 30px rgba(255, 82, 82, 0.6);
+}
+
+/* Interface Mode Classes */
+.interface-mode-standard {
+  --interface-opacity: 1;
+  --interface-scale: 1;
+}
+
+.interface-mode-minimal {
+  --interface-opacity: 0.8;
+  --interface-scale: 0.95;
+}
+
+.interface-mode-focus {
+  --interface-opacity: 1;
+  --interface-scale: 1.02;
+}
+
+.interface-mode-focus .glass {
+  background: var(--glass-bg-lighter);
+  border: 1px solid var(--interface-accent);
+  box-shadow: var(--interface-glow);
+}
+
+/* Layout Size Classes */
+.layout-desktop {
+  --layout-spacing: var(--spacing-xl);
+  --layout-border-radius: var(--radius-lg);
+}
+
+.layout-tablet {
+  --layout-spacing: var(--spacing-lg);
+  --layout-border-radius: var(--radius-md);
+}
+
+.layout-mobile {
+  --layout-spacing: var(--spacing-md);
+  --layout-border-radius: var(--radius-sm);
+}
+
+/* Micro-interaction Utilities */
+.hover-lift {
+  transition: transform var(--animation-duration-fast) var(--animation-easing-smooth);
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+.hover-scale {
+  transition: transform var(--animation-duration-fast) var(--animation-easing-smooth);
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+.hover-glow {
+  transition: box-shadow var(--animation-duration-normal) var(--animation-easing-smooth);
+}
+
+.hover-glow:hover {
+  box-shadow: var(--glow-primary);
+}
+
+.active-press {
+  transition: transform var(--animation-duration-fast) var(--animation-easing-smooth);
+}
+
+.active-press:active {
+  transform: scale(0.95);
+}
+
+.button-press:active {
+  animation: button-press var(--animation-duration-fast) var(--animation-easing-smooth);
+}
+
+.elastic-bounce {
+  animation: elastic-bounce var(--animation-duration-normal) var(--animation-easing-bounce);
+}
+
+/* Animation Utilities */
+.animate-fade-in {
+  animation: fade-in var(--animation-duration-normal) var(--animation-easing-smooth);
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up var(--animation-duration-normal) var(--animation-easing-smooth);
+}
+
+.animate-fade-in-down {
+  animation: fade-in-down var(--animation-duration-normal) var(--animation-easing-smooth);
+}
+
+.animate-fade-in-left {
+  animation: fade-in-left var(--animation-duration-normal) var(--animation-easing-smooth);
+}
+
+.animate-fade-in-right {
+  animation: fade-in-right var(--animation-duration-normal) var(--animation-easing-smooth);
+}
+
+.animate-scale-in {
+  animation: scale-in var(--animation-duration-normal) var(--animation-easing-smooth);
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left var(--animation-duration-normal) var(--animation-easing-smooth);
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right var(--animation-duration-normal) var(--animation-easing-smooth);
+}
+
+.animate-breathe {
+  animation: breathe var(--animation-duration-extra-slow) ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Particle Effect Utilities */
+.particle-float {
+  animation: particle-float 3s ease-in-out infinite;
+}
+
+.particle-float:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.particle-float:nth-child(3) {
+  animation-delay: 1s;
+}
+
+.particle-float:nth-child(4) {
+  animation-delay: 1.5s;
+}
+
+/* Layout Utilities */
+.glass-panel {
+  @apply glass p-6 rounded-lg shadow-lg;
+}
+
+.glass-card {
+  @apply glass-light p-4 rounded-md shadow-md hover-lift;
+}
+
+.floating-element {
+  @apply glass-lighter rounded-full p-3 hover-scale active-press;
+  box-shadow: var(--shadow-lg);
+}
+
+/* Responsive Layout Classes */
+.desktop-layout {
+  --layout-padding: var(--spacing-xl);
+  --layout-gap: var(--spacing-lg);
+  --layout-columns: 12;
+}
+
+.tablet-layout {
+  --layout-padding: var(--spacing-lg);
+  --layout-gap: var(--spacing-md);
+  --layout-columns: 8;
+}
+
+.mobile-layout {
+  --layout-padding: var(--spacing-md);
+  --layout-gap: var(--spacing-sm);
+  --layout-columns: 4;
+}
+
+/* Responsive Panel Transitions */
+.panel-enter {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.panel-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity var(--animation-duration-normal) var(--animation-easing-smooth),
+              transform var(--animation-duration-normal) var(--animation-easing-smooth);
+}
+
+.panel-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.panel-exit-active {
+  opacity: 0;
+  transform: translateX(20px);
+  transition: opacity var(--animation-duration-normal) var(--animation-easing-smooth),
+              transform var(--animation-duration-normal) var(--animation-easing-smooth);
+}
+
+/* Layout Mode Transitions */
+.layout-mode-transition {
+  transition: all var(--animation-duration-slow) var(--animation-easing-smooth);
+}
+
+/* Responsive Breakpoint Utilities */
+@media (max-width: 767px) {
+  .mobile-hidden {
+    display: none !important;
+  }
+  
+  .mobile-full-width {
+    width: 100% !important;
+  }
+  
+  .mobile-stack {
+    flex-direction: column !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .tablet-hidden {
+    display: none !important;
+  }
+  
+  .tablet-compact {
+    padding: var(--spacing-sm) !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .desktop-only {
+    display: block !important;
+  }
+  
+  .desktop-grid {
+    display: grid !important;
+  }
+}
+
+/* Responsive Animation Controls */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .voice-idle,
+  .glow-pulse,
+  .animate-breathe,
+  .particle-float {
+    animation: none !important;
+  }
+}
+
+/* Keyframe Animations */
+
+/* Voice State Animations */
+@keyframes voice-idle-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+@keyframes voice-listening-ripple {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+@keyframes voice-speaking-wave {
+  0%, 100% {
+    transform: scaleY(1);
+  }
+  25% {
+    transform: scaleY(1.2);
+  }
+  50% {
+    transform: scaleY(0.8);
+  }
+  75% {
+    transform: scaleY(1.1);
+  }
+}
+
+@keyframes voice-processing-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Breathing Animation */
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 1;
+  }
+}
+
+/* Glow Pulse Animation */
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: var(--glow-primary);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(79, 195, 247, 0.8);
+  }
+}
+
+/* Fade In Animations */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-down {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Scale Animations */
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes scale-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+/* Slide Animations */
+@keyframes slide-in-left {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-out-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes slide-out-right {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* Particle Effects */
+@keyframes particle-float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.7;
+  }
+  33% {
+    transform: translateY(-10px) rotate(120deg);
+    opacity: 1;
+  }
+  66% {
+    transform: translateY(5px) rotate(240deg);
+    opacity: 0.8;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Micro-interaction Animations */
+@keyframes button-press {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes elastic-bounce {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.1);
+  }
+  60% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Smooth transitions */
+* {
+  transition: all var(--animation-duration-normal) var(--animation-easing-smooth);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-light);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
 }

@@ -1,0 +1,352 @@
+/* Financial Content Highlighting Styles */
+
+/* Base financial highlight styles */
+.financial-highlight {
+  @apply relative inline-block;
+  transition: all var(--animation-duration-fast) var(--animation-easing-smooth);
+}
+
+.financial-highlight:hover {
+  transform: translateY(-1px);
+}
+
+/* Financial Terms */
+.financial-term {
+  @apply px-1 py-0.5 rounded-sm font-medium;
+  border-bottom: 2px solid transparent;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(4px);
+}
+
+.financial-term:hover {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Priority-based term styling */
+.financial-term-high {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+  background: rgba(255, 213, 79, 0.1);
+}
+
+.financial-term-high:hover {
+  background: rgba(255, 213, 79, 0.2);
+  box-shadow: var(--glow-accent);
+}
+
+.financial-term-medium {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+  background: rgba(79, 195, 247, 0.1);
+}
+
+.financial-term-medium:hover {
+  background: rgba(79, 195, 247, 0.2);
+  box-shadow: var(--glow-primary);
+}
+
+.financial-term-low {
+  color: var(--color-secondary);
+  border-bottom-color: var(--color-secondary);
+  background: rgba(129, 199, 132, 0.1);
+}
+
+.financial-term-low:hover {
+  background: rgba(129, 199, 132, 0.2);
+  box-shadow: var(--glow-secondary);
+}
+
+/* Category-based term styling */
+.financial-category-investment {
+  border-left: 3px solid var(--color-accent);
+}
+
+.financial-category-banking {
+  border-left: 3px solid var(--color-primary);
+}
+
+.financial-category-retirement {
+  border-left: 3px solid var(--color-secondary);
+}
+
+.financial-category-insurance {
+  border-left: 3px solid #9c27b0;
+}
+
+.financial-category-tax {
+  border-left: 3px solid #ff5722;
+}
+
+.financial-category-market {
+  border-left: 3px solid #607d8b;
+}
+
+/* Financial Numbers */
+.financial-number {
+  @apply px-1.5 py-0.5 rounded font-mono font-semibold;
+  background: var(--glass-bg-light);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(6px);
+}
+
+.financial-number:hover {
+  background: var(--glass-bg-lighter);
+  border-color: var(--glass-border-light);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Number type styling */
+.financial-number-currency {
+  color: #4caf50;
+  border-color: rgba(76, 175, 80, 0.3);
+  background: rgba(76, 175, 80, 0.1);
+}
+
+.financial-number-currency:hover {
+  background: rgba(76, 175, 80, 0.2);
+  box-shadow: 0 0 12px rgba(76, 175, 80, 0.4);
+}
+
+.financial-number-percentage {
+  color: #2196f3;
+  border-color: rgba(33, 150, 243, 0.3);
+  background: rgba(33, 150, 243, 0.1);
+}
+
+.financial-number-percentage:hover {
+  background: rgba(33, 150, 243, 0.2);
+  box-shadow: 0 0 12px rgba(33, 150, 243, 0.4);
+}
+
+.financial-number-large_numbers {
+  color: #ff9800;
+  border-color: rgba(255, 152, 0, 0.3);
+  background: rgba(255, 152, 0, 0.1);
+}
+
+.financial-number-large_numbers:hover {
+  background: rgba(255, 152, 0, 0.2);
+  box-shadow: 0 0 12px rgba(255, 152, 0, 0.4);
+}
+
+.financial-number-decimal_numbers {
+  color: #9c27b0;
+  border-color: rgba(156, 39, 176, 0.3);
+  background: rgba(156, 39, 176, 0.1);
+}
+
+.financial-number-decimal_numbers:hover {
+  background: rgba(156, 39, 176, 0.2);
+  box-shadow: 0 0 12px rgba(156, 39, 176, 0.4);
+}
+
+.financial-number-years {
+  color: #607d8b;
+  border-color: rgba(96, 125, 139, 0.3);
+  background: rgba(96, 125, 139, 0.1);
+}
+
+.financial-number-years:hover {
+  background: rgba(96, 125, 139, 0.2);
+  box-shadow: 0 0 12px rgba(96, 125, 139, 0.4);
+}
+
+.financial-number-ratios {
+  color: #795548;
+  border-color: rgba(121, 85, 72, 0.3);
+  background: rgba(121, 85, 72, 0.1);
+}
+
+.financial-number-ratios:hover {
+  background: rgba(121, 85, 72, 0.2);
+  box-shadow: 0 0 12px rgba(121, 85, 72, 0.4);
+}
+
+.financial-number-basis_points {
+  color: #e91e63;
+  border-color: rgba(233, 30, 99, 0.3);
+  background: rgba(233, 30, 99, 0.1);
+}
+
+.financial-number-basis_points:hover {
+  background: rgba(233, 30, 99, 0.2);
+  box-shadow: 0 0 12px rgba(233, 30, 99, 0.4);
+}
+
+.financial-number-account_numbers {
+  color: var(--color-text-muted);
+  border-color: rgba(156, 163, 175, 0.3);
+  background: rgba(156, 163, 175, 0.1);
+  font-family: 'Courier New', monospace;
+}
+
+.financial-number-account_numbers:hover {
+  background: rgba(156, 163, 175, 0.2);
+}
+
+/* Clickable states */
+.financial-highlight.cursor-pointer:hover {
+  transform: translateY(-2px);
+}
+
+.financial-highlight.cursor-pointer:active {
+  transform: translateY(0);
+}
+
+/* Animation effects */
+.financial-highlight-pulse {
+  animation: financial-pulse 2s infinite;
+}
+
+.financial-highlight-glow {
+  animation: financial-glow 3s ease-in-out infinite;
+}
+
+/* Tooltip enhancements */
+.financial-highlight[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--glass-bg);
+  color: var(--color-text);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 1000;
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+  opacity: 0;
+  animation: tooltip-appear 0.2s ease-out forwards;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+  .financial-term,
+  .financial-number {
+    @apply px-1 py-0.5 text-sm;
+  }
+  
+  .financial-highlight[title]:hover::after {
+    font-size: 11px;
+    padding: 3px 6px;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .financial-term {
+    border-width: 2px;
+    border-style: solid;
+    background: transparent;
+  }
+  
+  .financial-number {
+    border-width: 2px;
+    background: transparent;
+  }
+  
+  .financial-term-high {
+    border-color: #ffff00;
+    color: #ffff00;
+  }
+  
+  .financial-term-medium {
+    border-color: #00ffff;
+    color: #00ffff;
+  }
+  
+  .financial-term-low {
+    border-color: #00ff00;
+    color: #00ff00;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .financial-highlight {
+    transition: none;
+  }
+  
+  .financial-highlight:hover {
+    transform: none;
+  }
+  
+  .financial-highlight-pulse,
+  .financial-highlight-glow {
+    animation: none;
+  }
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .financial-term {
+    background: rgba(255, 255, 255, 0.08);
+  }
+  
+  .financial-term:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+  
+  .financial-number {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .financial-number:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* Keyframe animations */
+@keyframes financial-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(79, 195, 247, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(79, 195, 247, 0);
+  }
+}
+
+@keyframes financial-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(79, 195, 247, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(79, 195, 247, 0.6);
+  }
+}
+
+@keyframes tooltip-appear {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* Focus styles for accessibility */
+.financial-highlight:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Selection styles */
+.financial-highlight::selection {
+  background: rgba(79, 195, 247, 0.3);
+}
+
+.financial-highlight::-moz-selection {
+  background: rgba(79, 195, 247, 0.3);
+}

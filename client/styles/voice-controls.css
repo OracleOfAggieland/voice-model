@@ -1,0 +1,364 @@
+/* Voice Controls Component Styles */
+
+/* Container Styles */
+.voice-controls-container {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Main Controls Layout */
+.voice-controls-main {
+  position: relative;
+}
+
+/* Control Button Base Styles */
+.voice-control-button {
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  border: 1px solid;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.voice-control-button:focus {
+  outline: 2px solid rgba(147, 51, 234, 0.5);
+  outline-offset: 2px;
+}
+
+/* Primary Control (Main Session Button) */
+.voice-control-button.primary-control {
+  background: linear-gradient(135deg, 
+    rgba(147, 51, 234, 0.2) 0%, 
+    rgba(79, 70, 229, 0.2) 100%);
+  border-color: rgba(147, 51, 234, 0.4);
+}
+
+.voice-control-button.primary-control:hover:not(.disabled) {
+  background: linear-gradient(135deg, 
+    rgba(147, 51, 234, 0.4) 0%, 
+    rgba(79, 70, 229, 0.4) 100%);
+  border-color: rgba(147, 51, 234, 0.6);
+  box-shadow: 
+    0 6px 20px rgba(147, 51, 234, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.voice-control-button.primary-control.active {
+  background: linear-gradient(135deg, 
+    rgba(239, 68, 68, 0.3) 0%, 
+    rgba(220, 38, 38, 0.3) 100%);
+  border-color: rgba(239, 68, 68, 0.5);
+  animation: primary-active-pulse 2s ease-in-out infinite;
+}
+
+/* Secondary Controls */
+.voice-control-button.secondary-control {
+  background: rgba(31, 41, 55, 0.6);
+  border-color: rgba(75, 85, 99, 0.6);
+}
+
+.voice-control-button.secondary-control:hover:not(.disabled) {
+  background: rgba(55, 65, 81, 0.8);
+  border-color: rgba(107, 114, 128, 0.8);
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.voice-control-button.secondary-control.active {
+  background: rgba(147, 51, 234, 0.3);
+  border-color: rgba(147, 51, 234, 0.5);
+}
+
+/* Disabled State */
+.voice-control-button.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* Animation States */
+.voice-control-button.idle {
+  animation: floating-bob 4s ease-in-out infinite;
+}
+
+.voice-control-button.connecting {
+  animation: connecting-pulse 1s ease-in-out infinite;
+}
+
+.voice-control-button.listening {
+  animation: listening-glow 1.5s ease-in-out infinite;
+}
+
+.voice-control-button.speaking {
+  animation: speaking-wave 1s ease-in-out infinite;
+}
+
+.voice-control-button.active {
+  animation: active-breathe 3s ease-in-out infinite;
+}
+
+/* Session Info Panel */
+.session-info {
+  min-width: 200px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(75, 85, 99, 0.3);
+  animation: session-info-appear 0.3s ease-out;
+}
+
+/* Mode Toggles Panel */
+.mode-toggles {
+  min-width: 220px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(75, 85, 99, 0.3);
+  animation: session-info-appear 0.3s ease-out;
+}
+
+/* Quick Actions Panel */
+.quick-actions {
+  min-width: 200px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(75, 85, 99, 0.3);
+  animation: session-info-appear 0.3s ease-out;
+}
+
+/* Keyboard Shortcuts Panel */
+.keyboard-shortcuts {
+  min-width: 240px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(75, 85, 99, 0.3);
+  animation: session-info-appear 0.3s ease-out;
+}
+
+.keyboard-shortcuts kbd {
+  background: rgba(31, 41, 55, 0.8);
+  border: 1px solid rgba(75, 85, 99, 0.5);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Activity Indicator */
+.activity-indicator {
+  z-index: 10;
+}
+
+/* Keyframe Animations */
+@keyframes primary-active-pulse {
+  0%, 100% {
+    box-shadow: 
+      0 4px 16px rgba(239, 68, 68, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  50% {
+    box-shadow: 
+      0 6px 24px rgba(239, 68, 68, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+}
+
+@keyframes floating-bob {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes connecting-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes listening-glow {
+  0%, 100% {
+    box-shadow: 
+      0 4px 16px rgba(59, 130, 246, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  50% {
+    box-shadow: 
+      0 6px 24px rgba(59, 130, 246, 0.6),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+}
+
+@keyframes speaking-wave {
+  0%, 100% {
+    box-shadow: 
+      0 4px 16px rgba(147, 51, 234, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  25% {
+    box-shadow: 
+      0 6px 20px rgba(147, 51, 234, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  }
+  50% {
+    box-shadow: 
+      0 8px 24px rgba(147, 51, 234, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+  75% {
+    box-shadow: 
+      0 6px 20px rgba(147, 51, 234, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  }
+}
+
+@keyframes active-breathe {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 0.95;
+  }
+}
+
+@keyframes session-info-appear {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .voice-controls-container.floating {
+    bottom: 1rem;
+    right: 1rem;
+  }
+  
+  .voice-control-button.primary-control {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+  
+  .voice-control-button.secondary-control {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  
+  .session-info {
+    min-width: 160px;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .voice-controls-main {
+    gap: 0.75rem;
+  }
+  
+  .voice-control-button.primary-control {
+    width: 3rem;
+    height: 3rem;
+  }
+  
+  .voice-control-button.secondary-control {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .voice-control-button {
+    border-width: 2px;
+  }
+  
+  .voice-control-button.primary-control {
+    background: rgba(147, 51, 234, 0.4);
+    border-color: rgba(147, 51, 234, 0.8);
+  }
+  
+  .voice-control-button.secondary-control {
+    background: rgba(31, 41, 55, 0.8);
+    border-color: rgba(75, 85, 99, 0.8);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .voice-control-button,
+  .session-info {
+    animation: none !important;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  
+  .voice-control-button:hover:not(.disabled) {
+    transform: none;
+  }
+}
+
+/* Focus visible for keyboard navigation */
+.voice-control-button:focus-visible {
+  outline: 2px solid rgba(147, 51, 234, 0.8);
+  outline-offset: 2px;
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .voice-control-button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .voice-control-button:hover {
+    transform: none;
+  }
+  
+  .voice-control-button:active {
+    transform: scale(0.95);
+  }
+}
+
+/* Dark theme adjustments */
+.voice-controls-container[data-theme="dark"] {
+  /* Already optimized for dark theme */
+}
+
+/* Light theme adjustments */
+.voice-controls-container[data-theme="light"] .voice-control-button {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #1f2937;
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.voice-controls-container[data-theme="light"] .voice-control-button.primary-control {
+  background: linear-gradient(135deg, 
+    rgba(147, 51, 234, 0.1) 0%, 
+    rgba(79, 70, 229, 0.1) 100%);
+  border-color: rgba(147, 51, 234, 0.3);
+}
+
+.voice-controls-container[data-theme="light"] .session-info {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #1f2937;
+}
